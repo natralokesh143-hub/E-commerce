@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProducts } from "../Slices/ProductsSlice"
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router-dom"
 import { addToCart } from "../Slices/CartSlice"
 import { CiHeart } from "react-icons/ci"
 import { FiSearch, FiX, FiStar, FiShoppingCart } from "react-icons/fi"

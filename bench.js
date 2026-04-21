@@ -10,6 +10,8 @@
     console.log('after remove', s.getState().wishlist);
   } catch (err) {
     console.error('error', err);
-    process.exit(1);
+    if (typeof globalThis.process?.exit === "function") {
+      globalThis.process.exit(1);
+    }
   }
 })();

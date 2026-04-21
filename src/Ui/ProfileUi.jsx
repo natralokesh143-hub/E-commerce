@@ -55,7 +55,7 @@ const ProfileUi = () => {
             </div>
           )}
 
-          {/* avatar section uses same name as CSS for consistency */}
+        
           <div className="profile-avatar-section">
             <img 
               src={imgSrc} 
@@ -83,8 +83,8 @@ const ProfileUi = () => {
             )}
           </div>
 
-          {/* debug: show raw user data when profile seems empty */}
-          {process.env.NODE_ENV === 'development' && (
+          
+          {import.meta.env.DEV && (
             <pre className="user-debug">{JSON.stringify(user, null, 2)}</pre>
           )}
 
@@ -93,7 +93,7 @@ const ProfileUi = () => {
           </button>
         </div>
 
-        {/* Stats Grid */}
+        
         <div className="profile-stats-grid">
           {stats.map((stat, index) => {
             const IconComponent = stat.icon
@@ -109,7 +109,7 @@ const ProfileUi = () => {
           })}
         </div>
 
-        {/* Quick Links */}
+       
         <div className="quick-links-section">
           <h3 className="section-title">Quick Links</h3>
           <div className="quick-links-grid">
@@ -150,7 +150,7 @@ const ProfileUi = () => {
           </div>
         </div>
 
-        {/* Recent Orders */}
+       
         {orders.length > 0 && (
           <div className="recent-orders-section">
             <h3 className="section-title">Recent Orders</h3>

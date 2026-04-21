@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { loginApi } from '../Slices/AuthSlice'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { FiMail, FiLock, FiEye, FiEyeOff, FiCheckCircle } from 'react-icons/fi'
 import './AuthUi.css'
 

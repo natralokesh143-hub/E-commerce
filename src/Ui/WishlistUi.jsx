@@ -2,12 +2,12 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
  import { removeFromWishlist } from '../Slices/WishlistSlice';
 import { addToCart } from '../Slices/CartSlice';
-import { FiArrowLeft, FiX, FiShoppingCart, FiSearch, FiFilter } from 'react-icons/fi';
+import { FiArrowLeft, FiX, FiShoppingCart, FiSearch } from 'react-icons/fi';
 import { Toaster, toast } from 'react-hot-toast';
 import './WishlistUi.css';
 
@@ -19,13 +19,17 @@ const WishlistUi = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('recent');
 
-  const filteredWishlist = wishlist
-    .filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
-    .sort((a, b) => {
-      if (sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
-      if (sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
-      return 0;
-    });
+  const cartIds = useMemo(() => new Set(cart.map((item) => item.id)), [cart]);
+
+  const filteredWishlist = useMemo(() => {
+    return wishlist
+      .filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
+      .sort((a, b) => {
+        if (sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
+        if (sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
+        return 0;
+      });
+  }, [wishlist, searchTerm, sortBy]);
 
   const handleRemove = (itemId) => {
     dispatch(removeFromWishlist(itemId));
@@ -33,8 +37,7 @@ const WishlistUi = () => {
   };
 
   const handleAddToCart = (product) => {
-    const exists = cart.find(item => item.id === product.id);
-    if (exists) {
+    if (cartIds.has(product.id)) {
       toast.error('Item already in cart');
       return;
     }
@@ -45,8 +48,7 @@ const WishlistUi = () => {
   const handleMoveAllToCart = () => {
     let addedCount = 0;
     wishlist.forEach(item => {
-      const exists = cart.find(cartItem => cartItem.id === item.id);
-      if (!exists) {
+      if (!cartIds.has(item.id)) {
         dispatch(addToCart(item));
         addedCount++;
       }

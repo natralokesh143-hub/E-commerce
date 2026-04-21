@@ -3,13 +3,13 @@ import {createSlice,createAsyncThunk} from "@reduxjs/toolkit"
 
 export var loginApi = createAsyncThunk(
     "login/loginapi",
-    async (credentails,{rejectWithValue})=>{
+    async (credentials,{rejectWithValue})=>{
         var response = await fetch("https://dummyjson.com/auth/login",{
             method : "post",
             headers : {
                 "content-Type" : "application/json"
             },
-            body : JSON.stringify(credentails)
+            body : JSON.stringify(credentials)
         })
         var data = await response.json()
         if(!response.ok){
@@ -36,8 +36,10 @@ var authSlice = createSlice({
         builder
         .addCase(loginApi.pending,(state)=>{
             state.loading = true
+            state.error = null
         })
         .addCase(loginApi.fulfilled,(state,action)=>{
+            state.loading = false
             state.user = action.payload
         })
         .addCase(loginApi.rejected,(state,action)=>{

@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams, useNavigate } from "react-router"
+import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { addToCart } from "../Slices/CartSlice"
 import { toast } from "react-hot-toast"

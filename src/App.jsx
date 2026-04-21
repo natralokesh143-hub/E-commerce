@@ -7,7 +7,7 @@ import "./App.css";
 import AuthUi from "./Ui/AuthUi";
 import ProfileUi from "./Ui/ProfileUi";
 import OrdersUi from "./Ui/OrdersUi";
-import ProductDetails from "./pages/ProductDetails"
+import ProductDetails from "./Pages/ProductDetails"
 
 const App = () => {
   return (
